@@ -15,6 +15,7 @@ func main() {
 	parser.AddCommand("peek", "peeks a job from a queue", "", &cli.PeekCommand{})
 	parser.AddCommand("kick", "kicks jobs from buried back into ready", "", &cli.KickCommand{})
 	parser.AddCommand("put", "put a job into a tube", "", &cli.PutCommand{})
+	parser.AddCommand("bury", "bury existing jobs from ready state", "", &cli.BuryCommand{})
 
 	_, err := parser.Parse()
 	if err != nil {
