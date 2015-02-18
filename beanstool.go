@@ -9,11 +9,12 @@ import (
 )
 
 func main() {
-	parser := flags.NewNamedParser("event-relay", flags.Default)
+	parser := flags.NewNamedParser("beanstool", flags.Default)
 	parser.AddCommand("stats", "print stats on all tubes", "", &cli.StatsCommand{})
 	parser.AddCommand("tail", "tails a tube and prints his content", "", &cli.TailCommand{})
 	parser.AddCommand("peek", "peeks a job from a queue", "", &cli.PeekCommand{})
 	parser.AddCommand("kick", "kicks jobs from buried back into ready", "", &cli.KickCommand{})
+	parser.AddCommand("put", "put a job into a tube", "", &cli.PutCommand{})
 
 	_, err := parser.Parse()
 	if err != nil {
