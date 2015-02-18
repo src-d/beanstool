@@ -12,6 +12,7 @@ func main() {
 	parser := flags.NewNamedParser("event-relay", flags.Default)
 	parser.AddCommand("stats", "print stats on all tubes", "", &cli.Monitor{})
 	parser.AddCommand("tail", "tails a tube and prints his content", "", &cli.Tail{})
+	parser.AddCommand("peek", "peeks a job from a queue", "", &cli.PeekCommand{})
 
 	_, err := parser.Parse()
 	if err != nil {
