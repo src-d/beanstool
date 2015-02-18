@@ -21,6 +21,8 @@ var HighSeverityStyle = gocolorize.NewColor("white:red")
 var NormalSeverityStyle = gocolorize.NewColor("green")
 
 type StatsCommand struct {
+	Tubes string `short:"t" long:"tubes" description:"tubes to be listed (separated by ,). By default all are listed"`
+
 	Command
 }
 
@@ -95,7 +97,7 @@ func addStyle(i int, l int, severity int) string {
 }
 
 func (c *StatsCommand) GetStats() (map[string]*TubeStats, error) {
-	tubes, err := c.conn.ListTubes()
+	tubes, err := c.getTubesName()
 	if err != nil {
 		return nil, err
 	}
@@ -111,6 +113,14 @@ func (c *StatsCommand) GetStats() (map[string]*TubeStats, error) {
 	}
 
 	return stats, nil
+}
+
+func (c *StatsCommand) getTubesName() ([]string, error) {
+	if c.Tubes != "" {
+		return strings.Split(strings.Replace(c.Tubes, " ", "", -1), ","), nil
+	}
+
+	return c.conn.ListTubes()
 }
 
 func mustConvertToInt(s string) int {
