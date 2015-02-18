@@ -7,37 +7,25 @@ import (
 	"github.com/kr/beanstalk"
 )
 
-type Tail struct {
-	Host string `short:"h" long:"host" description:"beanstalkd host addr." required:"true" default:"localhost:11300"`
+type TailCommand struct {
 	Tube string `short:"t" long:"tube" description:"tube to be tailed." required:"true"`
-
-	conn *beanstalk.Conn
+	Command
 }
 
-func (t *Tail) Execute(args []string) error {
-	if err := t.Init(); err != nil {
+func (c *TailCommand) Execute(args []string) error {
+	if err := c.Init(); err != nil {
 		return err
 	}
 
-	if err := t.Tail(); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (t *Tail) Init() error {
-	var err error
-	t.conn, err = beanstalk.Dial("tcp", t.Host)
-	if err != nil {
+	if err := c.Tail(); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (t *Tail) Tail() error {
-	ts := beanstalk.NewTubeSet(t.conn, t.Tube)
+func (c *TailCommand) Tail() error {
+	ts := beanstalk.NewTubeSet(c.conn, c.Tube)
 
 	for {
 		id, body, err := ts.Reserve(time.Hour * 24)
@@ -45,7 +33,7 @@ func (t *Tail) Tail() error {
 			return err
 		}
 
-		s, _ := t.conn.StatsJob(id)
+		s, _ := c.conn.StatsJob(id)
 
 		fmt.Printf(
 			"id: %d\nlen: %d\npriority: %s\nbody: %q\n\n",

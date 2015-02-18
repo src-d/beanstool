@@ -21,10 +21,8 @@ var TubeStatsRetrievalError = errors.New("Unable to retrieve tube stats")
 var HighSeverityStyle = gocolorize.NewColor("white:red")
 var NormalSeverityStyle = gocolorize.NewColor("green")
 
-type Monitor struct {
-	Host string `short:"h" long:"host" description:"beanstalkd host addr." required:"true" default:"localhost:11300"`
-
-	conn *beanstalk.Conn
+type StatsCommand struct {
+	Command
 }
 
 type TubeStats struct {
@@ -37,30 +35,20 @@ type TubeStats struct {
 	TotalJobs    int
 }
 
-func (m *Monitor) Execute(args []string) error {
-	if err := m.Init(); err != nil {
+func (c *StatsCommand) Execute(args []string) error {
+	if err := c.Init(); err != nil {
 		return err
 	}
 
-	if err := m.PrintStats(); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *Monitor) Init() error {
-	var err error
-	m.conn, err = beanstalk.Dial("tcp", m.Host)
-	if err != nil {
+	if err := c.PrintStats(); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *Monitor) PrintStats() error {
-	stats, err := m.GetStats()
+func (c *StatsCommand) PrintStats() error {
+	stats, err := c.GetStats()
 	if err != nil {
 		return err
 	}
@@ -75,14 +63,14 @@ func (m *Monitor) PrintStats() error {
 	})
 
 	for t, s := range stats {
-		table.AddRow(m.buildLineFromTubeStats(t, s))
+		table.AddRow(c.buildLineFromTubeStats(t, s))
 	}
 
 	fmt.Println(table.Render())
 	return nil
 }
 
-func (m *Monitor) buildLineFromTubeStats(name string, s *TubeStats) []string {
+func (c *StatsCommand) buildLineFromTubeStats(name string, s *TubeStats) []string {
 	l := make([]string, 0)
 
 	l = append(l, name)
@@ -117,15 +105,15 @@ func addStyle(i int, l int, severity int) string {
 	return padded
 }
 
-func (m *Monitor) GetStats() (map[string]*TubeStats, error) {
-	tubes, err := m.conn.ListTubes()
+func (c *StatsCommand) GetStats() (map[string]*TubeStats, error) {
+	tubes, err := c.conn.ListTubes()
 	if err != nil {
 		return nil, err
 	}
 
 	stats := make(map[string]*TubeStats, 0)
 	for _, tube := range tubes {
-		s, err := m.GetStatsForTube(tube)
+		s, err := c.GetStatsForTube(tube)
 		if err != nil {
 			return nil, err
 		}
@@ -136,8 +124,8 @@ func (m *Monitor) GetStats() (map[string]*TubeStats, error) {
 	return stats, nil
 }
 
-func (m *Monitor) GetStatsForTube(tube string) (*TubeStats, error) {
-	t := &beanstalk.Tube{m.conn, tube}
+func (c *StatsCommand) GetStatsForTube(tube string) (*TubeStats, error) {
+	t := &beanstalk.Tube{c.conn, tube}
 	s, err := t.Stats()
 	if err != nil {
 		return nil, err
