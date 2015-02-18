@@ -34,7 +34,7 @@ func (c *KickCommand) Kick() error {
 		return nil
 	}
 
-	fmt.Printf("Trying to kick %d jobs from %q...\n", c.Num, c.Tube)
+	fmt.Printf("Trying to kick %d jobs from %q ...\n", c.Num, c.Tube)
 
 	t := &beanstalk.Tube{c.conn, c.Tube}
 	kicked, err := t.Kick(c.Num)

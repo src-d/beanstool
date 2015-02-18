@@ -27,7 +27,7 @@ func (c *BuryCommand) Execute(args []string) error {
 }
 
 func (c *BuryCommand) Bury() error {
-	if err := c.calcNumIfNeeded(); err != nil {
+	if err := c.calcNum(); err != nil {
 		return err
 	}
 
@@ -36,12 +36,12 @@ func (c *BuryCommand) Bury() error {
 		return nil
 	}
 
-	fmt.Printf("Trying to bury %d jobs from %q...\n", c.Num, c.Tube)
+	fmt.Printf("Trying to bury %d jobs from %q ...\n", c.Num, c.Tube)
 
 	count := 0
 	ts := beanstalk.NewTubeSet(c.conn, c.Tube)
 	for count < c.Num {
-		id, _, err := ts.Reserve(time.Hour * 24)
+		id, _, err := ts.Reserve(time.Second)
 		if err != nil {
 			return err
 		}
@@ -59,7 +59,7 @@ func (c *BuryCommand) Bury() error {
 		if err := c.conn.Bury(id, uint32(pri)); err != nil {
 			return err
 		}
-		fmt.Println(pri)
+
 		count++
 	}
 
@@ -67,14 +67,15 @@ func (c *BuryCommand) Bury() error {
 	return nil
 }
 
-func (c *BuryCommand) calcNumIfNeeded() error {
-	if c.Num == 0 {
-		s, err := c.GetStatsForTube(c.Tube)
-		if err != nil {
-			return err
-		}
+func (c *BuryCommand) calcNum() error {
+	s, err := c.GetStatsForTube(c.Tube)
+	if err != nil {
+		return err
+	}
 
+	if c.Num == 0 || c.Num > s.JobsReady {
 		c.Num = s.JobsReady
+		return nil
 	}
 
 	return nil
