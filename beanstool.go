@@ -13,6 +13,7 @@ func main() {
 	parser.AddCommand("stats", "print stats on all tubes", "", &cli.StatsCommand{})
 	parser.AddCommand("tail", "tails a tube and prints his content", "", &cli.TailCommand{})
 	parser.AddCommand("peek", "peeks a job from a queue", "", &cli.PeekCommand{})
+	parser.AddCommand("kick", "kicks jobs from buried back into ready", "", &cli.KickCommand{})
 
 	_, err := parser.Parse()
 	if err != nil {

@@ -7,7 +7,6 @@ import (
 	"strings"
 
 	"github.com/agtorre/gocolorize"
-	"github.com/kr/beanstalk"
 	"github.com/mcuadros/termtable"
 )
 
@@ -23,16 +22,6 @@ var NormalSeverityStyle = gocolorize.NewColor("green")
 
 type StatsCommand struct {
 	Command
-}
-
-type TubeStats struct {
-	JobsBuried   int
-	JobsDelayed  int
-	JobsReady    int
-	JobsReserved int
-	JobsUrgent   int
-	Waiting      int
-	TotalJobs    int
 }
 
 func (c *StatsCommand) Execute(args []string) error {
@@ -122,28 +111,6 @@ func (c *StatsCommand) GetStats() (map[string]*TubeStats, error) {
 	}
 
 	return stats, nil
-}
-
-func (c *StatsCommand) GetStatsForTube(tube string) (*TubeStats, error) {
-	t := &beanstalk.Tube{c.conn, tube}
-	s, err := t.Stats()
-	if err != nil {
-		return nil, err
-	}
-
-	if name, ok := s["name"]; !ok || name != tube {
-		return nil, TubeStatsRetrievalError
-	}
-
-	return &TubeStats{
-		JobsBuried:   mustConvertToInt(s["current-jobs-buried"]),
-		JobsReady:    mustConvertToInt(s["current-jobs-ready"]),
-		JobsDelayed:  mustConvertToInt(s["current-jobs-delayed"]),
-		JobsReserved: mustConvertToInt(s["current-jobs-reserved"]),
-		JobsUrgent:   mustConvertToInt(s["current-jobs-urgent"]),
-		Waiting:      mustConvertToInt(s["current-waiting"]),
-		TotalJobs:    mustConvertToInt(s["total-jobs"]),
-	}, nil
 }
 
 func mustConvertToInt(s string) int {
