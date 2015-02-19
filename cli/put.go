@@ -38,8 +38,8 @@ func (c *PutCommand) Put() error {
 	}
 
 	fmt.Printf(
-		"Added job with id %d to %s with priority %d, delay %d, TTR %d\n",
-		id, c.Tube, c.Priority, c.Delay, c.TTR,
+		"Added job with id %d to %s with priority %d, delay %s, TTR %d\n",
+		id, c.Tube, c.Priority, c.Delay.String(), c.TTR,
 	)
 
 	return nil

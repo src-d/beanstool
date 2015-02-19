@@ -8,7 +8,7 @@ import (
 
 type KickCommand struct {
 	Tube string `short:"t" long:"tube" description:"tube to kick jobs in." required:"true"`
-	Num  int    `short:"n" long:"num" description:"number of jobs to kick."`
+	Num  int    `short:"" long:"num" description:"number of jobs to kick."`
 	Command
 }
 

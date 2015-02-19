@@ -1,14 +1,12 @@
 package cli
 
 import (
-	"fmt"
-
 	"github.com/kr/beanstalk"
 )
 
 type PeekCommand struct {
 	Tube  string `short:"t" long:"tube" description:"tube to be tailed." required:"true"`
-	State string `short:"s" long:"state" description:"peek from 'buried', 'ready' or 'delayed' queues." required:"true" default:"buried"`
+	State string `short:"" long:"state" description:"peek from 'buried', 'ready' or 'delayed' queues." default:"buried"`
 	Command
 }
 
@@ -29,15 +27,21 @@ func (c *PeekCommand) Peek() error {
 	var id uint64
 	var body []byte
 	var err error
-	id, body, err = t.PeekBuried()
+
+	switch c.State {
+	case "buried":
+		id, body, err = t.PeekBuried()
+	case "ready":
+		id, body, err = t.PeekReady()
+	case "delayed":
+		id, body, err = t.PeekDelayed()
+	}
+
 	if err != nil {
 		return err
 	}
 
-	fmt.Printf(
-		"id: %d\nlen: %d\nbody: %q\n\n",
-		id, len(body), body,
-	)
+	c.PrintJob(id, body)
 
 	return nil
 }

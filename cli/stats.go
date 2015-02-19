@@ -65,13 +65,13 @@ func (c *StatsCommand) buildLineFromTubeStats(name string, s *TubeStats) []strin
 	l := make([]string, 0)
 
 	l = append(l, name)
-	l = append(l, addStyle(s.JobsBuried, 10, HighSeverity))
-	l = append(l, addStyle(s.JobsDelayed, 10, NormalSeverity))
-	l = append(l, addStyle(s.JobsReady, 10, NormalSeverity))
-	l = append(l, addStyle(s.JobsReserved, 10, NormalSeverity))
-	l = append(l, addStyle(s.JobsUrgent, 10, NormalSeverity))
-	l = append(l, addStyle(s.Waiting, 10, LowSeverity))
-	l = append(l, addStyle(s.TotalJobs, 10, LowSeverity))
+	l = append(l, addStyle(s.JobsBuried, 8, HighSeverity))
+	l = append(l, addStyle(s.JobsDelayed, 8, NormalSeverity))
+	l = append(l, addStyle(s.JobsReady, 8, NormalSeverity))
+	l = append(l, addStyle(s.JobsReserved, 8, NormalSeverity))
+	l = append(l, addStyle(s.JobsUrgent, 8, NormalSeverity))
+	l = append(l, addStyle(s.Waiting, 8, LowSeverity))
+	l = append(l, addStyle(s.TotalJobs, 8, LowSeverity))
 
 	return l
 }
