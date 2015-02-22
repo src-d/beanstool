@@ -1,4 +1,4 @@
-beanstool [![Latest Stable Version](http://img.shields.io/github/release/tyba/beanstool.svg?style=flat)](https://github.com/tyba/beanstool/releases)
+beanstool [![Latest Stable Version](http://img.shields.io/github/release/tyba/beanstool.svg?style=flat)](https://github.com/tyba/beanstool/releases) [![Circle CI](https://img.shields.io/circleci/project/tyba/beanstool.svg?style=flat)](https://circleci.com/gh/tyba/beanstool)
 ==============================
 
 Dependency free [beanstalkd](http://kr.github.io/beanstalkd/) admin tool.
