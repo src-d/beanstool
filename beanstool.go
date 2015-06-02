@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/cch123/beanstool/cli"
+	"github.com/tyba/beanstool/cli"
 
 	"github.com/jessevdk/go-flags"
 )
