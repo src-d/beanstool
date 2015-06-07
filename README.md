@@ -30,6 +30,7 @@ Help Options:
 Available commands:
   bury   bury existing jobs from ready state
   kick   kicks jobs from buried back into ready
+  delete a job from a queue
   peek   peeks a job from a queue
   put    put a job into a tube
   stats  print stats on all tubes
