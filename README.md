@@ -5,20 +5,25 @@ Dependency free [beanstalkd](http://kr.github.io/beanstalkd/) admin tool.
 
 Basically this is a rework of the wonderful [bsTools](https://github.com/jimbojsb/bstools) with some extra features and of course without need to install any dependency. Very useful in companion of the server in a small docker container.
 
-Installation
-------------
-
+##Installation
+###Linux
 ```
-wget https://github.com/tyba/beanstool/releases/download/v0.1.0/beanstool_v0.1.0_linux_amd64.tar.gz
-tar -xvzf beanstool_v0.1.0_linux_amd64.tar.gz
-cp beanstool_v0.1.0_linux_amd64/beanstool /usr/local/bin/
+wget https://github.com/tyba/beanstool/releases/download/v0.2.0/beanstool_v0.2.0_linux_amd64.tar.gz
+tar -xvzf beanstool_v0.2.0_linux_amd64.tar.gz
+cp beanstool_v0.2.0_linux_amd64/beanstool /usr/local/bin/
+```
+###Mac OS X
+```
+wget https://github.com/tyba/beanstool/releases/download/v0.2.0/beanstool_v0.2.0_darwin_amd64.tar.gz
+tar -xvzf beanstool_v0.2.0_darwin_amd64.tar.gz
+cp beanstool_v0.2.0_darwin_amd64/beanstool /usr/local/bin/
 ```
 
-browse the [`releases`](https://github.com/tyba/beanstool/releases) section to see other archs and versions
+
+Browse the [`releases`](https://github.com/tyba/beanstool/releases) section to see other archives and versions.
 
 
-Usage
------
+##Usage
 
 ```sh
 Usage:
@@ -48,7 +53,6 @@ As example this is the output of the command `./beanstool stats`:
 +---------+----------+----------+----------+----------+----------+---------+-------+
 ```
 
-License
--------
+##License
 
 MIT, see [LICENSE](LICENSE)
