@@ -3,6 +3,7 @@ package cli
 import (
 	"errors"
 	"fmt"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -14,6 +15,7 @@ const (
 	HighSeverity = iota
 	NormalSeverity
 	LowSeverity
+	DefaultTube = "default"
 )
 
 var TubeStatsRetrievalError = errors.New("Unable to retrieve tube stats")
@@ -53,8 +55,14 @@ func (c *StatsCommand) PrintStats() error {
 		"Name", "Buried", "Delayed", "Ready", "Reserved", "Urgent", "Waiting", "Total",
 	})
 
-	for t, s := range stats {
-		table.AddRow(c.buildLineFromTubeStats(t, s))
+	table.AddRow(c.buildLineFromTubeStats(DefaultTube, stats[DefaultTube]))
+
+	for _, t := range sortedKeys(stats) {
+		if t == DefaultTube {
+			continue
+		}
+
+		table.AddRow(c.buildLineFromTubeStats(t, stats[t]))
 	}
 
 	fmt.Println(table.Render())
@@ -62,7 +70,7 @@ func (c *StatsCommand) PrintStats() error {
 }
 
 func (c *StatsCommand) buildLineFromTubeStats(name string, s *TubeStats) []string {
-	l := make([]string, 0)
+	var l []string
 
 	l = append(l, name)
 	l = append(l, addStyle(s.JobsBuried, 8, HighSeverity))
@@ -130,4 +138,17 @@ func mustConvertToInt(s string) int {
 	}
 
 	return i
+}
+
+func sortedKeys(m map[string]*TubeStats) []string {
+	keys := make([]string, len(m))
+
+	i := 0
+	for key := range m {
+		keys[i] = key
+		i++
+	}
+
+	sort.Strings(keys)
+	return keys
 }
