@@ -9,9 +9,9 @@ Installation
 ------------
 
 ```
-wget https://github.com/tyba/beanstool/releases/download/v0.1.0/beanstool_v0.1.0_linux_amd64.tar.gz
-tar -xvzf beanstool_v0.1.0_linux_amd64.tar.gz
-cp beanstool_v0.1.0_linux_amd64/beanstool /usr/local/bin/
+wget https://github.com/src-d/beanstool/releases/download/v0.2.0/beanstool_v0.2.0_linux_amd64.tar.gz
+tar -xvzf beanstool_v0.2.0_linux_amd64.tar.gz
+cp beanstool_v0.2.0_linux_amd64/beanstool /usr/local/bin/
 ```
 
 browse the [`releases`](https://github.com/tyba/beanstool/releases) section to see other archs and versions
