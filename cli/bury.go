@@ -51,7 +51,7 @@ func (c *BuryCommand) Bury() error {
 			return err
 		}
 
-		pri, err := strconv.Atoi(s["pri"])
+		pri, err := strconv.ParseUint(s["pri"], 10, 32)
 		if err != nil {
 			return err
 		}

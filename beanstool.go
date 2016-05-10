@@ -3,9 +3,8 @@ package main
 import (
 	"os"
 
-	"github.com/src-d/beanstool/cli"
-
 	"github.com/jessevdk/go-flags"
+	"github.com/src-d/beanstool/cli"
 )
 
 func main() {

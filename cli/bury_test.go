@@ -55,3 +55,13 @@ func (s *BuryCommandSuite) TestBuryCommand_BuryWithLimitOver(c *C) {
 	c.Assert(stats.JobsBuried, Equals, 1)
 	c.Assert(stats.JobsReady, Equals, 0)
 }
+
+func (s *BuryCommandSuite) TestBuryCommand_BuryWithPriorityBeyondInt32(c *C) {
+	s.t.Put([]byte(""), 2147483648, 0, 0)
+
+	err := s.c.Bury()
+	c.Assert(err, IsNil)
+
+	stats, _ := s.c.GetStatsForTube(s.c.Tube)
+	c.Assert(stats.JobsBuried, Equals, 1)
+}
