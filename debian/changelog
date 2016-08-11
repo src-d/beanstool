@@ -1,0 +1,5 @@
+beanstool (0.1.0+git20160517.10.93a4591-1) UNRELEASED; urgency=medium
+
+  * Initial release (Closes: 834020)
+
+ -- Vadim Markovtsev <vadim@sourced.tech>  Thu, 11 Aug 2016 15:59:48 +0300
