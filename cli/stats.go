@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/agtorre/gocolorize"
-	"github.com/mcuadros/termtable"
+	"github.com/stevedomin/termtable"
 )
 
 const (
