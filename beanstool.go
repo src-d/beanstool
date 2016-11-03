@@ -25,7 +25,7 @@ func main() {
 
 	_, err := parser.Parse()
 	if err != nil {
-		if _, ok := err.(*flags.Error); ok {
+		if flagErr, ok := err.(*flags.Error); ok && flagErr.Type != flags.ErrHelp {
 			parser.WriteHelp(os.Stdout)
 		}
 
