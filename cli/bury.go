@@ -19,11 +19,7 @@ func (c *BuryCommand) Execute(args []string) error {
 		return err
 	}
 
-	if err := c.Bury(); err != nil {
-		return err
-	}
-
-	return nil
+	return c.Bury()
 }
 
 func (c *BuryCommand) Bury() error {
@@ -75,7 +71,6 @@ func (c *BuryCommand) calcNum() error {
 
 	if c.Num == 0 || c.Num > s.JobsReady {
 		c.Num = s.JobsReady
-		return nil
 	}
 
 	return nil

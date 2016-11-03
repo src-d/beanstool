@@ -15,15 +15,11 @@ func (c *PeekCommand) Execute(args []string) error {
 		return err
 	}
 
-	if err := c.Peek(); err != nil {
-		return err
-	}
-
-	return nil
+	return c.Peek()
 }
 
 func (c *PeekCommand) Peek() error {
-	t := &beanstalk.Tube{c.conn, c.Tube}
+	t := &beanstalk.Tube{Conn: c.conn, Name: c.Tube}
 	var id uint64
 	var body []byte
 	var err error

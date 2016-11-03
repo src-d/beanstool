@@ -23,11 +23,7 @@ func (c *TailCommand) Execute(args []string) error {
 		return err
 	}
 
-	if err := c.Tail(); err != nil {
-		return err
-	}
-
-	return nil
+	return c.Tail()
 }
 
 func (c *TailCommand) Tail() error {
@@ -77,9 +73,5 @@ func (c *TailCommand) postPrintAction(id uint64) error {
 		err = c.conn.Delete(id)
 	}
 
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return err
 }

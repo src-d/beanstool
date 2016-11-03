@@ -17,11 +17,7 @@ func (c *KickCommand) Execute(args []string) error {
 		return err
 	}
 
-	if err := c.Kick(); err != nil {
-		return err
-	}
-
-	return nil
+	return c.Kick()
 }
 
 func (c *KickCommand) Kick() error {
@@ -36,7 +32,7 @@ func (c *KickCommand) Kick() error {
 
 	fmt.Printf("Trying to kick %d jobs from %q ...\n", c.Num, c.Tube)
 
-	t := &beanstalk.Tube{c.conn, c.Tube}
+	t := &beanstalk.Tube{Conn: c.conn, Name: c.Tube}
 	kicked, err := t.Kick(c.Num)
 	if err != nil {
 		return err
