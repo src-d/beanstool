@@ -33,11 +33,7 @@ func (c *StatsCommand) Execute(args []string) error {
 		return err
 	}
 
-	if err := c.PrintStats(); err != nil {
-		return err
-	}
-
-	return nil
+	return c.PrintStats()
 }
 
 func (c *StatsCommand) PrintStats() error {

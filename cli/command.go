@@ -19,11 +19,7 @@ type Command struct {
 func (c *Command) Init() error {
 	var err error
 	c.conn, err = beanstalk.Dial("tcp", c.Host)
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return err
 }
 
 func (c *Command) PrintJob(id uint64, body []byte) error {
@@ -56,7 +52,7 @@ func (c *Command) PrintJob(id uint64, body []byte) error {
 }
 
 func (c *Command) GetStatsForTube(tube string) (*TubeStats, error) {
-	t := &beanstalk.Tube{c.conn, tube}
+	t := &beanstalk.Tube{Conn: c.conn, Name: tube}
 	s, err := t.Stats()
 	if err != nil {
 		return nil, err

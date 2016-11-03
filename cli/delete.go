@@ -17,15 +17,11 @@ func (c *DeleteCommand) Execute(args []string) error {
 		return err
 	}
 
-	if err := c.Delete(); err != nil {
-		return err
-	}
-
-	return nil
+	return c.Delete()
 }
 
 func (c *DeleteCommand) Delete() error {
-	t := &beanstalk.Tube{c.conn, c.Tube}
+	t := &beanstalk.Tube{Conn: c.conn, Name: c.Tube}
 	for {
 		if err := c.deleteJob(t); err != nil {
 			if err.Error() == "peek-ready: not found" {

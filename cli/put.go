@@ -22,15 +22,11 @@ func (c *PutCommand) Execute(args []string) error {
 		return err
 	}
 
-	if err := c.Put(); err != nil {
-		return err
-	}
-
-	return nil
+	return c.Put()
 }
 
 func (c *PutCommand) Put() error {
-	t := beanstalk.Tube{c.conn, c.Tube}
+	t := beanstalk.Tube{Conn: c.conn, Name: c.Tube}
 
 	id, err := t.Put([]byte(c.Body), c.Priority, c.Delay, c.TTR)
 	if err != nil {
