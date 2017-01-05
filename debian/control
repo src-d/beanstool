@@ -1,0 +1,61 @@
+Source: beanstool
+Section: devel
+Priority: extra
+Maintainer: Debian Go Packaging Team <pkg-go-maintainers@lists.alioth.debian.org>
+Uploaders: Vadim Markovtsev <vadim@sourced.tech>
+Build-Depends: debhelper (>= 9),
+               dh-golang,
+               golang-go (>= 1.6)
+Standards-Version: 3.9.6
+Homepage: https://github.com/src-d/beanstool
+Vcs-Browser: https://anonscm.debian.org/cgit/pkg-go/packages/beanstool.git
+Vcs-Git: git://anonscm.debian.org/pkg-go/packages/beanstool.git
+XS-Go-Import-Path: github.com/src-d/beanstool
+
+Package: beanstool
+Architecture: any
+Built-Using: ${misc:Built-Using}
+Depends: ${shlibs:Depends},
+         ${misc:Depends}
+Description: Dependency free beanstalkd admin tool
+ beanstool Circle CI (https://circleci.com/gh/src-d/beanstool) Dependency
+ free beanstalkd (http://kr.github.io/beanstalkd/) admin tool.
+ .
+ Basically this is a rework of the wonderful bsTools
+ (https://github.com/jimbojsb/bstools) with some extra features and of
+ course without need to install any dependency. Very useful in companion
+ of the server in a small docker container.  Installation
+ .
+ wget
+ https://github.com/src-d/beanstool/releases/download/v0.2.0/beanstool_v0.2.0_linux_amd64.tar.gz
+ tar -xvzf beanstool_v0.2.0_linux_amd64.tar.gz cp
+ beanstool_v0.2.0_linux_amd64/beanstool /usr/local/bin/
+ .
+ .
+ browse the releases (https://github.com/tyba/beanstool/releases) section
+ to see other archs and versions Usage ```sh Usage:
+   beanstool [OPTIONS]
+ .
+ Help Options:
+   -h, --help  Show this help message
+ .
+ Available commands:
+   bury   bury existing jobs from ready state kick   kicks jobs from
+   buried back into ready delete a job from a queue peek   peeks a job
+   from a queue put    put a job into a tube stats  print stats on all
+   tubes tail   tails a tube and prints his content
+ ```
+ .
+ As example this is the output of the command ./beanstool stats:
+ .
+ .
+ +---------+----------+----------+----------+----------+----------+---------+-------+
+ | Name    | Buried   | Delayed  |
+ Ready    | Reserved | Urgent   | Waiting | Total |
+ +---------+----------+----------+----------+----------+----------+---------+-------+
+ | foo     | 20       | 0        | 5        | 0        |
+ 0        | 0       | 28    | | default | 0        |
+ 0        | 0        | 0        | 0        | 0       | 0     |
+ +---------+----------+----------+----------+----------+----------+---------+-------+
+ .
+ License MIT, see LICENSE (LICENSE)
