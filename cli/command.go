@@ -11,7 +11,7 @@ var TitleStyle = gocolorize.NewColor("green")
 var InfoStyle = gocolorize.NewColor("yellow")
 
 type Command struct {
-	Host string `short:"h" long:"host" description:"beanstalkd host addr." required:"true" default:"localhost:11300"`
+	Host string `short:"H" long:"host" description:"beanstalkd host addr." required:"true" default:"localhost:11300"`
 
 	conn *beanstalk.Conn
 }
