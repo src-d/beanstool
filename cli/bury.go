@@ -10,7 +10,7 @@ import (
 
 type BuryCommand struct {
 	Tube string `short:"t" long:"tube" description:"tube to bury jobs in." required:"true"`
-	Num  int    `short:"" long:"num" description:"number of jobs to bury."`
+	Num  int    `short:"n" long:"num" description:"number of jobs to bury."`
 	Command
 }
 
