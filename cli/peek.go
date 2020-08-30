@@ -6,7 +6,7 @@ import (
 
 type PeekCommand struct {
 	Tube  string `short:"t" long:"tube" description:"tube to be tailed." required:"true"`
-	State string `short:"" long:"state" description:"peek from 'buried', 'ready' or 'delayed' queues." default:"buried"`
+	State string `short:"s" long:"state" description:"peek from 'buried', 'ready' or 'delayed' queues." default:"buried"`
 	Command
 }
 
