@@ -10,9 +10,9 @@ import (
 type PutCommand struct {
 	Tube     string        `short:"t" long:"tube" description:"tube to be tailed." required:"true"`
 	Body     string        `short:"b" long:"body" description:"plain text data for the job." required:"true"`
-	Priority uint32        `short:"" long:"priority" description:"priority for the job." default:"1024"`
-	Delay    time.Duration `short:"" long:"delay" description:"delay for the job." default:"0"`
-	TTR      time.Duration `short:"" long:"ttr" description:"TTR for the job." default:"60"`
+	Priority uint32        `short:"p" long:"priority" description:"priority for the job." default:"1024"`
+	Delay    time.Duration `short:"d" long:"delay" description:"delay for the job." default:"0"`
+	TTR      time.Duration `short:"" long:"ttr" description:"TTR for the job." default:"60s"`
 
 	Command
 }

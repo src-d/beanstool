@@ -6,9 +6,9 @@ import (
 
 type DeleteCommand struct {
 	Tube  string `short:"t" long:"tube" description:"tube to be delete." required:"true"`
-	State string `short:"" long:"state" description:"peek from 'buried', 'ready' or 'delayed' queues." default:"buried"`
-	Print bool   `short:"" long:"print" description:"prints the jobs after delete it."`
-	Empty bool   `short:"" long:"empty" description:"delete all jobs with the given status in the given tube."`
+	State string `short:"s" long:"state" description:"peek from 'buried', 'ready' or 'delayed' queues." default:"buried"`
+	Print bool   `short:"p" long:"print" description:"prints the jobs after delete it."`
+	Empty bool   `short:"e" long:"empty" description:"delete all jobs with the given status in the given tube."`
 	Command
 }
 

@@ -7,7 +7,7 @@ DEPENDENCIES =
 BASE_PATH := $(shell pwd)
 BUILD_PATH := $(BASE_PATH)/build
 VERSION ?= $(shell git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
-BUILD ?= $(shell date)
+BUILD ?= $(shell date --utc --rfc-3339=seconds | tr ' ' 'T')
 ASSETS := static
 
 # PACKAGES
@@ -27,7 +27,7 @@ all: test build
 
 build: dependencies
 	for cmd in $(COMMANDS); do \
-		$(GOCMD) build -ldflags "-X main.version $(VERSION) -X main.build \"$(BUILD)\"" $${cmd}.go; \
+		$(GOCMD) build -ldflags "-X main.version=$(VERSION) -X main.build=$(BUILD)" $${cmd}.go; \
 	done
 
 test: dependencies

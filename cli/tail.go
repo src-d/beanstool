@@ -13,7 +13,7 @@ var TooManyErrorsError = errors.New("Too many errors")
 
 type TailCommand struct {
 	Tube   string `short:"t" long:"tube" description:"tube to be tailed." required:"true"`
-	Action string `short:"" long:"action" description:"action to perform after reserver the job. (release, bury, delete)" default:"release"`
+	Action string `short:"a" long:"action" description:"action to perform after reserving the job. (release, bury, delete)" default:"release"`
 
 	Command
 }
